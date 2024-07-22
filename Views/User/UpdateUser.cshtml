@@ -1,0 +1,28 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Update User";
+}
+
+<h2>Update User</h2>
+
+<form asp-action="UpdateUser" method="post">
+    <input type="hidden" asp-for="UserId" />
+    <div class="form-group">
+        <label for="FirstName">First Name:</label>
+        <input type="text" class="form-control" asp-for="FirstName" required />
+    </div>
+    <div class="form-group">
+        <label for="LastName">Last Name:</label>
+        <input type="text" class="form-control" asp-for="LastName" required />
+    </div>
+    <div class="form-group">
+        <label for="MailAddress">Mail:</label>
+        <input type="email" class="form-control" asp-for="MailAddress" required />
+    </div>
+    <div class="form-group">
+        <label for="Password">Password:</label>
+        <input type="password" class="form-control" asp-for="Password" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Update User</button>
+</form>

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "bBGpapio3Ign3EToW9iUk4G6ymxDLusAyWHzutfYjULOt1BVezUnRQCP5BTTynK6/N2S6F3cV1A5p7E04zJxXw==",
+  "success": true,
+  "projectFilePath": "/Users/hilmiozbay/Projects/Deneme6/Deneme6/NoteApp.csproj",
+  "expectedPackageFiles": [
+    "/Users/hilmiozbay/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.31/microsoft.aspnetcore.app.ref.6.0.31.nupkg.sha512",
+    "/Users/hilmiozbay/.nuget/packages/microsoft.netcore.app.host.osx-arm64/6.0.31/microsoft.netcore.app.host.osx-arm64.6.0.31.nupkg.sha512",
+    "/Users/hilmiozbay/.nuget/packages/microsoft.netcore.app.ref/6.0.31/microsoft.netcore.app.ref.6.0.31.nupkg.sha512"
+  ],
+  "logs": []
+}

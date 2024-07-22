@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Add Note";
+}
+
+<h2>Add Note</h2>
+
+<form asp-action="AddNote" method="post">
+    <div class="form-group">
+        <label for="NoteText">Note:</label>
+        <textarea class="form-control" id="NoteText" name="NoteText" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Note</button>
+</form>

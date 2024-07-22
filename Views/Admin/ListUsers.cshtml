@@ -1,0 +1,29 @@
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "List Users";
+}
+
+<h2>List Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Mail</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.MailAddress</td>
+                <td>
+                    <a asp-action="DeactivateUser" asp-route-userId="@user.UserId">Deactivate</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,15 @@
+﻿@model Note
+
+@{
+    ViewData["Title"] = "Delete Note";
+}
+
+<h2>Are you sure you want to delete this note?</h2>
+
+<p>@Model.NoteText</p>
+
+<form asp-action="DeleteNoteConfirmed" method="post">
+    <input type="hidden" asp-for="NoteId" />
+    <button type="submit" class="btn btn-danger">Yes, delete it!</button>
+    <a asp-action="ListNotes" class="btn btn-secondary">Cancel</a>
+</form>
