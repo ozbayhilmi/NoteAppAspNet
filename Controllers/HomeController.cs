@@ -35,8 +35,15 @@ namespace Deneme6.Controllers
 
             if (user != null)
             {
+                if (!user.IsActive)
+                {
+                    ModelState.AddModelError(string.Empty, "Kullanıcı hesabı aktif değil.");
+                    return View();
+                }
+
                 HttpContext.Session.SetInt32("UserId", user.UserId);
                 HttpContext.Session.SetString("UserMail", user.MailAddress);
+
                 if (user.IsAdmin)
                 {
                     return RedirectToAction("AdminMenu", "Admin");
@@ -45,9 +52,9 @@ namespace Deneme6.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Kullanıcı kayıtlı değil.");
+                ModelState.AddModelError(string.Empty, "Kullanıcı kayıtlı değil veya şifre yanlış.");
             }
-            
+
             return View();
         }
 

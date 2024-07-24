@@ -14,3 +14,6 @@ namespace Deneme6.Models
 
 }
 
+//DBset
+//modelbuilder
+//

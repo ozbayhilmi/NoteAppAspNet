@@ -11,10 +11,20 @@
     <None Remove="Services\" />
     <None Remove="Views\User\" />
     <None Remove="Views\Admin\" />
+    <None Remove="DataAccess\" />
+    <None Remove="DataAccess\Context\" />
+    <None Remove="DataAccess\Repository\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Views\User\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="DataAccess\" />
+    <Folder Include="DataAccess\Context\" />
+    <Folder Include="DataAccess\Repository\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
   </ItemGroup>
 </Project>

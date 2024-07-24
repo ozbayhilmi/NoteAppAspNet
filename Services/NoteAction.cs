@@ -24,61 +24,63 @@ namespace Deneme6.Services
                 return new List<Note>();
             }
 
-            var notes = new List<Note>();
-            string[] lines = File.ReadAllLines(_noteFilePath);
-
-            foreach (string line in lines)
-            {
-                if (string.IsNullOrWhiteSpace(line))
+            var notes = File.ReadAllLines(_noteFilePath)
+                .Select(noteLine =>
                 {
-                    continue;
-                }
-
-                string[] parts = line.Split('#');
-                if (parts.Length == 4)
-                {
-                    int noteUserId;
-                    int noteId;
-                    DateTime noteDate;
-
-                    if (int.TryParse(parts[0], out noteId) &&
-                        int.TryParse(parts[1], out noteUserId) &&
-                        DateTime.TryParse(parts[3], out noteDate))
+                    var parts = noteLine.Split('#');
+                    if (parts.Length == 4)
                     {
-                        if (noteUserId == userId)
+                        return new Note
                         {
-                            var note = new Note
-                            {
-                                NoteId = noteId,
-                                UserId = noteUserId,
-                                NoteText = parts[2],
-                                NoteDate = noteDate
-                            };
-
-                            notes.Add(note);
-                        }
+                            NoteId = int.Parse(parts[0]),
+                            UserId = int.Parse(parts[1]),
+                            NoteText = parts[2],
+                            NoteDate = DateTime.Parse(parts[3])
+                        };
                     }
-                }
-            }
+                    else
+                    {
+                        return null;
+                    }
+                })
+                .Where(note => note != null && note.UserId == userId)
+                .ToList();
 
             return notes;
         }
 
-
         public void UpdateNote(Note note)
         {
+            if (!File.Exists(_noteFilePath))
+            {
+                return;
+            }
+
             var notes = File.ReadAllLines(_noteFilePath).ToList();
+            bool noteUpdated = false;
+
             for (int i = 0; i < notes.Count; i++)
             {
                 var noteProps = notes[i].Split('#');
-                if (int.Parse(noteProps[0]) == note.NoteId)
+                if (noteProps.Length == 4 && int.Parse(noteProps[0]) == note.NoteId)
                 {
-                    notes[i] = $"{note.NoteId}#{note.UserId}#{note.NoteText}#{note.NoteDate}";
+                   
+                    notes[i] = $"{note.NoteId}#{noteProps[1]}#{note.NoteText}#{note.NoteDate}"; 
+                    noteUpdated = true;
                     break;
                 }
             }
+
+            if (!noteUpdated)
+            { 
+                return;
+            }
+
             File.WriteAllLines(_noteFilePath, notes);
         }
+
+
+
 
         public void DeleteNote(int noteId)
         {
@@ -101,25 +103,15 @@ namespace Deneme6.Services
             if (!File.Exists(_noteFilePath) || File.ReadAllLines(_noteFilePath).Length == 0)
                 return 1;
 
-            int maxId = 0;
-            string[] lines = File.ReadAllLines(_noteFilePath);
+            var notes = File.ReadAllLines(_noteFilePath)
+                            .Where(n => !string.IsNullOrWhiteSpace(n) && n.Split('#').Length == 4)
+                            .Select(n => int.Parse(n.Split('#')[0]))
+                            .ToList();
 
-            foreach (string line in lines)
-            {
-                if (string.IsNullOrWhiteSpace(line)) continue;
+            if (notes.Count == 0)
+                return 1;
 
-                string[] parts = line.Split('#');
-                if (parts.Length == 4 && int.TryParse(parts[0], out int noteId))
-                {
-                    if (noteId > maxId)
-                    {
-                        maxId = noteId;
-                    }
-                }
-            }
-
-            return maxId + 1;
+            return notes.Max() + 1;
         }
-
     }
 }
